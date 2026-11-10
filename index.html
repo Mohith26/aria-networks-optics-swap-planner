@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aria Console · Optics swap plan (concept)</title>
+<link rel="icon" href="assets/aria-mark.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="tb-left">
+    <svg class="mark" viewBox="10 6 16 24" aria-label="Aria"><path d="M13.2004 26.7998H16.3998V30H13.2004C11.4324 30 10 28.5678 10 26.7998V17.2002H13.2004V26.7998Z" fill="currentColor"/><path d="M26 26.7998C26 28.5678 24.5676 30 22.7996 30H19.6002V26.7998H22.7996V17.2002H26V26.7998Z" fill="currentColor"/><path fill-rule="evenodd" clip-rule="evenodd" d="M22.7996 6C24.5676 6 26 7.43219 26 9.2002L25.999 17.1992H10.0019V14H10V9.2002C10 7.43219 11.4324 6 13.2004 6H22.7996ZM13.2004 13.999H22.7996V9.2002H13.2004V13.999Z" fill="currentColor"/></svg>
+    <span class="word">ARIA</span>
+    <span class="crumbs mono"><span>demo1</span><i>/</i><span>Investigations</span><i>/</i><span class="cur">optics-swap-plan</span></span>
+  </div>
+  <div class="tb-right mono"><span class="live"><b></b>LIVE</span><span id="clock"></span></div>
+</header>
+
+<main class="thread" id="thread">
+  <section class="prompt-card" id="prompt"></section>
+
+  <div class="tl">
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="tl-head" id="q-head"></div>
+      <div class="qlines mono" id="qlines"></div>
+    </div>
+
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="answer" id="answer"></div>
+    </div>
+
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="card" id="plan-card">
+        <div class="card-h"><span class="ttl">Swap plan · next 14 days</span>
+          <div class="seg mono" id="cap" role="group" aria-label="Technician capacity"></div>
+          <span class="pill red mono">14-day</span></div>
+        <table class="tbl mono" id="plan-tbl"></table>
+        <div class="tbl-note mono" id="plan-note"></div>
+      </div>
+    </div>
+
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="grid2">
+        <div class="card" id="hist-card"><div class="card-h"><span class="ttl" id="hist-ttl"></span><span class="pill mono" id="hist-pill"></span></div><div class="chart" id="hist"></div><div class="legend mono" id="hist-leg"></div></div>
+        <div class="card" id="margin-card"><div class="card-h"><span class="ttl" id="margin-ttl"></span><span class="pill mono">FORECAST</span></div><div class="chart" id="margin"></div><div class="legend mono" id="margin-leg"></div></div>
+      </div>
+    </div>
+
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="grid2">
+        <div class="card" id="cost-card"><div class="card-h"><span class="ttl" id="cost-ttl"></span><span class="pill mono">GPU-HOURS</span></div>
+          <div class="big-row"><span class="big" id="cost-big"></span><span class="big-lbl" id="cost-lbl"></span></div>
+          <div class="chart" id="cost"></div><div class="legend mono" id="cost-leg"></div></div>
+        <div class="card" id="bt-card"><div class="card-h"><span class="ttl">40-day replay · GPU-hours lost to optics</span><span class="pill mono" id="bt-pill"></span></div>
+          <div class="big-row"><span class="big" id="bt-big"></span><span class="big-lbl" id="bt-lbl"></span></div>
+          <div id="bt-bars"></div><div class="tbl-note mono" id="bt-note"></div></div>
+      </div>
+    </div>
+
+    <div class="tl-node done"><span class="dot"></span>
+      <div class="grid2">
+        <div class="card" id="cal-card"><div class="card-h"><span class="ttl">Is the risk calibrated? · P(flap within 7 days)</span><span class="pill mono">OUT OF SAMPLE</span></div><div class="chart" id="cal"></div><div class="legend mono" id="cal-leg"></div></div>
+        <div class="flow" id="flow"></div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot mono">Unofficial concept demo by Mohith Gajjela. Not affiliated with Aria Networks. Synthetic data.</footer>
+</main>
+
+<div class="composer"><div class="composer-in"><span id="ask">Which optics are going to take down a job in the next two weeks?</span><button aria-label="Send"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></button></div></div>
+
+<div class="tip mono" id="tip"></div>
+<script src="data/results.js"></script>
+<script src="data/seeds.js"></script>
+<script type="module" src="app.js"></script>
+</body>
+</html>

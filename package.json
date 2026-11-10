@@ -1,0 +1,6 @@
+{
+  "name": "aria-networks-optics-swap-planner",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test tests/optics.test.mjs", "build": "node scripts/run.mjs && node scripts/seeds.mjs" }
+}
