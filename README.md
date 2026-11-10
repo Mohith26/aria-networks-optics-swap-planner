@@ -33,7 +33,7 @@ Simulated cluster: 1,024 GPUs, 128 hosts, 16 leaves, 8 spines, 1,536 optical lin
 
 Across 20 independently seeded clusters (seeds 1-20), the planner lost a **median 37% fewer GPU-hours than swap-when-flagged** (range 13-59%, better in 20/20), a median 61% fewer than replacing after flaps, and 72% fewer than the BER alarm. The BER alarm does badly because it swaps stable-but-noisy optics that never fail and misses burst-type failures.
 
-Out-of-sample calibration (reactive replay, so swaps don't censor outcomes): the 80% flap windows contained 89% of actual flaps (163). The highest-risk bin is under-confident (predicted ~0.9, observed 1.0).
+Out-of-sample calibration of P(flap within 7 days) (reactive replay, so swaps don't censor outcomes): the 80% flap windows contained 89% of actual flaps (163). Calibration is uneven: the 10-30% band is over-confident (predicted 16%, observed 6%), the 50-70% band under-confident (61% vs 92%, only 12 link-days), and the top band under-confident (91% vs 100%).
 
 ## Tests
 
@@ -47,7 +47,7 @@ Poisson tail vs brute force; histogram probabilities sum to one; the fit recover
 - **Synthetic physics.** The optic model (Poisson random errors plus geometric bursts, daily jitter, linear-in-log degradation with mild acceleration, a smooth flap hazard at 1 uncorrectable/s) is a plausible stand-in, not fitted to real Aria telemetry. Real optics have per-lane histograms, temperature and laser-bias signals, connector contamination that cleaning fixes, and correlated failures; none of that is modeled.
 - **Daily counters only.** Aria's telemetry is microsecond-resolution. This uses one histogram per link per day; finer data would make the trend sharper and the flap model richer.
 - **Cost model is assumed.** Flap cost = GPUs × (half a checkpoint interval + restart + NCCL timeout); a swap visit is charged 20 GPU-hour equivalents for labor, the optic and reseat risk; maintenance windows are synthetic. Change these and the plan changes; that is the point, but the numbers are only as good as the inputs.
-- **Calibration is simple.** One feature (τ̂) with nearest neighbours and a base-rate prior. It is reasonably calibrated here but under-confident at the top and has little data for rare regimes. Sudden failures with no precursor (6 of 8 planner flaps in the shown replay) are not predictable by design.
+- **Calibration is simple.** One feature (τ̂) with nearest neighbours and a base-rate prior. It is roughly calibrated but uneven across bands (see above) and has little data for rare regimes; a second feature (current margin) or isotonic recalibration would be the next step. Sudden failures with no precursor (6 of 8 planner flaps in the shown replay) are not predictable by design.
 - **Seed choice.** Seed 71 is shown because its current-day state has a mix of decisions (swap now, wait for tomorrow's window, hold). Its backtest result (30% vs swap-when-flagged) is below the 20-seed median (37%).
 - **UI.** Aria Console's full app shell is not public. The investigation thread, cards, charts, workflow card and composer are rebuilt from Aria's official demo videos and product images; the thin top bar is an assumption.
 
